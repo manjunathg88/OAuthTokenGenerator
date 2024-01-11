@@ -42,14 +42,9 @@ namespace OAuthTokenGeneratorSolution
 
         public bool CheckTokenStatus(string accessToken)
         {
-            bool tokenExpired = false;
             var handler = new JwtSecurityTokenHandler();
             var authTokenJWT = handler.ReadJwtToken(accessToken);
-            if (authTokenJWT?.ValidTo < DateTime.UtcNow)
-            {
-                tokenExpired = true;
-            }
-            return tokenExpired;
+            return authTokenJWT?.ValidTo < DateTime.UtcNow;
         }
     }
 }
