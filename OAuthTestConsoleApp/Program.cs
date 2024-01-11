@@ -8,8 +8,13 @@ Request oAuthRequest = new Request()
 {
     Url = "https://accounts.google.com/o/oauth2/v2/auth",
     ClientId = "8819981768.apps.googleusercontent.com",
-    ClientSecret= "<client-secret>"
+    ClientSecret = "<client-secret>"
 };
 
-var resp = _oAuthTokenGenerator.GetAuthToken(oAuthRequest);
-Console.WriteLine(resp.Result);
+var response = _oAuthTokenGenerator.GetAuthToken(oAuthRequest);
+Console.WriteLine(response.Result);
+
+var tokenStatus = _oAuthTokenGenerator.CheckTokenStatus("<token>");
+Console.WriteLine(tokenStatus ? "Token is valid" : "Token is valid");
+
+

@@ -1,4 +1,6 @@
-﻿namespace OAuthTokenGeneratorSolution
+﻿using System.IdentityModel.Tokens.Jwt;
+
+namespace OAuthTokenGeneratorSolution
 {
     public class OAuthTokenGenerator
     {
@@ -36,6 +38,18 @@
             var response = await _httpClient.SendAsync(request);
 
             return response.Content;
+        }
+
+        public bool CheckTokenStatus(string accessToken)
+        {
+            bool tokenExpired = false;
+            var handler = new JwtSecurityTokenHandler();
+            var authTokenJWT = handler.ReadJwtToken(accessToken);
+            if (authTokenJWT?.ValidTo < DateTime.UtcNow)
+            {
+                tokenExpired = true;
+            }
+            return tokenExpired;
         }
     }
 }
